@@ -10,6 +10,7 @@ class App extends Component {
     this.state = {
       monsters: [],
       searchField: "",
+      title: "",
     };
   }
 
@@ -20,19 +21,24 @@ class App extends Component {
   }
 
   render() {
-    const { monsters, searchField } = this.state;
+    const { monsters, searchField, title } = this.state;
     const filteredMonsters = monsters.filter((monster) =>
       monster.name.toLowerCase().includes(searchField)
     );
     return (
       <div className="App">
         <header className="App-header">
-          <h1>Monsters</h1>
+          <h1>{title}</h1>
           <SearchBox
             placeholder="Search Monsters"
-            handleChange={(e) => this.setState({ searchField: e.target.value })}
+            handleChange={(e) =>
+              this.setState({
+                searchField: e.target.value,
+                title: e.target.value,
+              })
+            }
           ></SearchBox>
-          <CardList monsters={filteredMonsters}></CardList>
+          <CardList monsters={monsters}></CardList>
         </header>
       </div>
     );
